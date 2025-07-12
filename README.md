@@ -5,7 +5,7 @@ This project was developed as part of a technical test to demonstrate skills wit
 ### ✨ Features
 
 1. **🔐 OAuth Authentication (Email & Password)**
-    - Login with Firebase Authentication (email and password).
+    - Auth with Firebase Authentication (email and password).
     - Retrieve user profile (name, email, photo).
     - Session persistence and logout.
 
