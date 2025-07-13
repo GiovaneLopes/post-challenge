@@ -6,6 +6,7 @@ import 'package:post_challenge/core/di/injection_container.dart';
 import 'package:post_challenge/features/shared/theme/app_colors.dart';
 import 'package:post_challenge/features/auth/presentation/pages/login_page.dart';
 import 'package:post_challenge/features/posts/presentation/pages/posts_page.dart';
+import 'package:post_challenge/features/posts/presentation/pages/post_detail.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => const LoginPage(),
             '/posts': (context) => const PostsPage(),
+            '/post-details': (context) =>
+                ModalRoute.of(context)?.settings.arguments as PostDetailPage,
           },
         );
       },
