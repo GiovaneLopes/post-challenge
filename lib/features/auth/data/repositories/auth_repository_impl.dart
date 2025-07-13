@@ -10,10 +10,10 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthDatasource loginDatasource;
   final NetworkInfo networkInfo;
 
-  AuthRepositoryImpl({
-    required this.loginDatasource,
-    required this.networkInfo,
-  });
+  AuthRepositoryImpl(
+    this.loginDatasource,
+    this.networkInfo,
+  );
 
   @override
   Future<Either<Failure, UserEntity?>> getCurrentUser() async {

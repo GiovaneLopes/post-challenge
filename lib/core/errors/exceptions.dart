@@ -19,18 +19,11 @@ class AuthException implements Exception {
   String toString() => 'AuthException: $message';
 }
 
-class DatabaseException implements Exception {
+class PostException implements Exception {
   final String message;
-  const DatabaseException(this.message);
+  const PostException(this.message);
   @override
-  String toString() => 'DatabaseException: $message';
-}
-
-class NotFoundException implements Exception {
-  final String message;
-  const NotFoundException(this.message);
-  @override
-  String toString() => 'NotFoundException: $message';
+  String toString() => 'PostException: $message';
 }
 
 class UnexpectedException implements Exception {
