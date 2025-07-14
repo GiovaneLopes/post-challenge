@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_challenge/core/di/injection_container.dart';
+import 'package:post_challenge/features/shared/theme/app_colors.dart';
 import 'package:post_challenge/features/auth/presentation/bloc/auth_bloc.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -30,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
                                     state.user.photo ??
-                                        'https://www.gravatar.com/avatar/000000000000000000000000000000000?d=mp&f=y',
+                                        'https://i.pinimg.com/236x/6c/99/d8/6c99d882f8eec65f9ee0bd502c17ac84.jpg',
                                     scale: 1.5),
                                 radius: 15.r,
                               ),
@@ -48,25 +49,31 @@ class CustomDrawer extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Text(
-                            'Age: ${state.user.age ?? 'N/A'}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
-                          ),
-                          Text(
-                            'Posts: ${state.user.totalPosts ?? 0}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary),
+                          SizedBox(height: 8.h),
+                          Row(
+                            children: [
+                              Text(
+                                'Age: ${state.user.age ?? 'N/A'}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                              SizedBox(width: 16.w),
+                              Text(
+                                'Posts: ${state.user.totalPosts ?? 0}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                            ],
                           ),
                           Row(
                             children: [
@@ -88,7 +95,9 @@ class CustomDrawer extends StatelessWidget {
                         ],
                       )
                     : const Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: AppColors.onPrimary,
+                        ),
                       ),
               ),
               ListTile(

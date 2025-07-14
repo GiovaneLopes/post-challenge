@@ -39,4 +39,15 @@ class UserModel extends UserEntity {
       preferences: preferences ?? this.preferences,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        uid,
+        email,
+        name,
+        photo,
+        age,
+        totalPosts,
+        preferences,
+      ];
 }

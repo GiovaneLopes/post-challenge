@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_challenge/core/di/injection_container.dart';
 import 'package:post_challenge/features/shared/theme/app_colors.dart';
 import 'package:post_challenge/features/auth/presentation/pages/login_page.dart';
+import 'package:post_challenge/features/auth/presentation/pages/splash_page.dart';
 import 'package:post_challenge/features/posts/presentation/pages/posts_page.dart';
 import 'package:post_challenge/features/posts/presentation/pages/post_detail.dart';
 
@@ -14,11 +15,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const AppWdiget());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AppWdiget extends StatelessWidget {
+  const AppWdiget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           routes: {
-            '/': (context) => const LoginPage(),
+            '/': (context) => const SplashPage(),
+            '/login': (context) => const LoginPage(),
             '/posts': (context) => const PostsPage(),
             '/post-details': (context) =>
                 ModalRoute.of(context)?.settings.arguments as PostDetailPage,

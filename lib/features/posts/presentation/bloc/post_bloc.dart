@@ -20,8 +20,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   String getAuthorName(int authorId) {
     return authors
         .firstWhere((author) => author.id == authorId,
-            orElse: () =>
-                PostAuthorEntity(id: 0, name: 'Unknown Author', username: ''))
+            orElse: () => const PostAuthorEntity(
+                id: 0, name: 'Unknown Author', username: ''))
         .name;
   }
 

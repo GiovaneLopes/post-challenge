@@ -4,7 +4,7 @@ class PostEntity {
   final String body;
   final int userId;
 
-  PostEntity({
+  const PostEntity({
     required this.id,
     required this.title,
     required this.body,

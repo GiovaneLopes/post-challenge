@@ -6,13 +6,13 @@ import 'package:post_challenge/features/posts/domain/entities/post_entity.dart';
 import 'package:post_challenge/features/posts/domain/repositories/posts_repository.dart';
 
 class GetPostsUsecase implements UseCase<List<PostEntity>, PostsParams> {
-  final PostsRepository _repository;
+  final PostsRepository repository;
 
-  GetPostsUsecase(this._repository);
+  GetPostsUsecase(this.repository);
 
   @override
   Future<Either<Failure, List<PostEntity>>> call(PostsParams params) async {
-    return await _repository.getPosts(params.start);
+    return await repository.getPosts(params.start);
   }
 }
 

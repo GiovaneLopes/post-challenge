@@ -14,7 +14,6 @@ dependencies:
   bloc_test: ^10.0.0
   get_it: ^8.0.3
   equatable: ^2.0.7
-  mockito: ^5.4.6
   firebase_core: ^3.15.1
   firebase_auth: ^5.6.2
   cloud_firestore: ^5.6.11
@@ -23,10 +22,14 @@ dependencies:
   internet_connection_checker_plus: ^2.0.0
   dio: ^5.8.0+1
   rxdart: ^0.28.0
+  fake_cloud_firestore: ^3.1.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0
-  build_runner: ^2.5.4
+  mocktail:
+  build_runner:
+  flutter_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true

@@ -40,7 +40,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() => LoginUseCase(sl()));
   sl.registerLazySingleton(() => LogoutUseCase(sl()));
 
-  sl.registerFactory(() => AuthBloc(
+  sl.registerLazySingleton(() => AuthBloc(
         getUserUsecase: sl(),
         loginUseCase: sl(),
         logoutUseCase: sl(),
@@ -57,5 +57,5 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => GetPostsUsecase(sl()));
   sl.registerLazySingleton(() => GetPostsAuthorsUsecase(sl()));
-  sl.registerFactory(() => PostBloc(sl(), sl()));
+  sl.registerLazySingleton(() => PostBloc(sl(), sl()));
 }

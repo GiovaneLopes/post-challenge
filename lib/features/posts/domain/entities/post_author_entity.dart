@@ -3,7 +3,7 @@ class PostAuthorEntity {
   final String name;
   final String username;
 
-  PostAuthorEntity({
+  const PostAuthorEntity({
     required this.id,
     required this.name,
     required this.username,

@@ -21,6 +21,10 @@ class AuthFailure extends Failure {
   const AuthFailure(super.message);
 }
 
+class PostFailure extends Failure {
+  const PostFailure(super.message);
+}
+
 class DatabaseFailure extends Failure {
   const DatabaseFailure(super.message);
 }
