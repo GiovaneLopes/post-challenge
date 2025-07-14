@@ -29,7 +29,7 @@ Future<void> init() async {
 
   //Auth
   sl.registerLazySingleton<AuthDatasource>(
-    () => FirebaseAuthDatasourceImpl(sl()),
+    () => FirebaseAuthDatasourceImpl(sl(), sl()),
   );
 
   sl.registerLazySingleton<AuthRepository>(

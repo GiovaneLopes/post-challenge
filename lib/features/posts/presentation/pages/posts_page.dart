@@ -6,6 +6,8 @@ import 'package:post_challenge/features/shared/theme/app_colors.dart';
 import 'package:post_challenge/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:post_challenge/features/posts/presentation/bloc/post_bloc.dart';
 import 'package:post_challenge/features/posts/presentation/pages/post_detail.dart';
+import 'package:post_challenge/features/posts/presentation/widgets/custom_drawer.dart';
+import 'package:post_challenge/features/posts/presentation/widgets/custom_app_bar.dart';
 
 class PostsPage extends StatefulWidget {
   const PostsPage({super.key});
@@ -17,54 +19,19 @@ class PostsPage extends StatefulWidget {
 class _PostsPageState extends State<PostsPage> {
   final bloc = sl.get<PostBloc>();
   final authBloc = sl.get<AuthBloc>();
+  final GlobalKey<ScaffoldState> _key = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
+      appBar: const CustomAppBar(),
+      drawer: const CustomDrawer(),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.symmetric(horizontal: 12.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimary,
-                    child: const Icon(Icons.person),
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    'Posts',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: BlocListener<AuthBloc, AuthState>(
-                        bloc: authBloc,
-                        listener: (context, state) {
-                          if (state is LogoutSuccess) {
-                            Navigator.pushReplacementNamed(context, '/');
-                          } else if (state is LogoutError) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.message)),
-                            );
-                          }
-                        },
-                        child: IconButton(
-                          onPressed: () => authBloc.add(LogoutEvent()),
-                          icon: const Icon(
-                            Icons.logout,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 12.h),
               Expanded(
                 child: BlocBuilder<PostBloc, PostState>(
                   bloc: bloc,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:post_challenge/features/posts/domain/entities/post_entity.dart';
 
 class PostDetailPage extends StatelessWidget {
@@ -25,20 +26,13 @@ class PostDetailPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onSurface,
                   ),
             ),
-            const SizedBox(height: 8.0),
-            Text(
-              post.body,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-            ),
-            const SizedBox(height: 8.0),
+            SizedBox(height: 8.h),
             Row(
               children: [
                 Expanded(
                   child: Text(
                     authorName,
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.left,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontStyle: FontStyle.italic,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -47,6 +41,16 @@ class PostDetailPage extends StatelessWidget {
                 ),
               ],
             ),
+            SizedBox(height: 8.h),
+            const Divider(),
+            SizedBox(height: 8.h),
+            Text(
+              post.body,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+            const SizedBox(height: 8.0),
           ],
         ),
       ),
