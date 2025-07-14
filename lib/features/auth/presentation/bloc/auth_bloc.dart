@@ -24,13 +24,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(InitializeEvent());
   }
 
+  UserEntity? user;
+
   Future<void> _initialize(
       InitializeEvent event, Emitter<AuthState> emit) async {
-    final user = await getUserUsecase(NoParams());
-    user.fold(
+    final userOrFailure = await getUserUsecase(NoParams());
+    userOrFailure.fold(
       (failure) => emit(AuthError(failure.message)),
       (userEntity) {
         if (userEntity != null) {
+          user = userEntity;
           emit(AuthSuccess(userEntity));
         } else {
           emit(AuthInitial());
@@ -48,7 +51,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
     result.fold(
       (failure) => emit(AuthError(failure.message)),
-      (user) => emit(AuthSuccess(user)),
+      (userResponse) {
+        user = userResponse;
+        emit(AuthSuccess(userResponse));
+      },
     );
   }
 

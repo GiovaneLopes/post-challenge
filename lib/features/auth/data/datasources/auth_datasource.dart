@@ -1,18 +1,20 @@
 import '../models/user_model.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../../../core/errors/exceptions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 abstract class AuthDatasource {
   Future<UserEntity> signInWithEmailAndPassword(String email, String password);
   Future<void> signOut();
-  Stream<UserEntity?> get authStateChanges;
+  Future<UserEntity?> getCurrentUser();
 }
 
 class FirebaseAuthDatasourceImpl implements AuthDatasource {
   final firebase_auth.FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firestore;
 
-  FirebaseAuthDatasourceImpl(this._firebaseAuth);
+  FirebaseAuthDatasourceImpl(this._firebaseAuth, this._firestore);
 
   @override
   Future<UserEntity> signInWithEmailAndPassword(
@@ -22,8 +24,15 @@ class FirebaseAuthDatasourceImpl implements AuthDatasource {
         email: email,
         password: password,
       );
+      final result =
+          await _firestore.collection('users').doc(credential.user?.uid).get();
       if (credential.user != null) {
-        return UserModel.fromFirebaseUser(credential.user!);
+        return UserModel.fromFirebaseUser(credential.user!).copyWith(
+            name: result.data()?['name'],
+            photo: result.data()?['photo'],
+            age: result.data()?['age'],
+            totalPosts: result.data()?['totalPosts'],
+            preferences: result.data()?['preferences']?.cast<String>());
       } else {
         throw const AuthException('User not found after login.');
       }
@@ -56,9 +65,20 @@ class FirebaseAuthDatasourceImpl implements AuthDatasource {
   }
 
   @override
-  Stream<UserEntity?> get authStateChanges {
-    return _firebaseAuth.authStateChanges().map((user) {
-      return user != null ? UserModel.fromFirebaseUser(user) : null;
-    });
+  Future<UserEntity?> getCurrentUser() async {
+    final user = _firebaseAuth.currentUser;
+    if (user != null) {
+      final result = await _firestore.collection('users').doc(user.uid).get();
+      if (result.exists) {
+        return UserModel.fromFirebaseUser(user).copyWith(
+          name: result.data()?['name'],
+          photo: result.data()?['photo'],
+          age: result.data()?['age'],
+          totalPosts: result.data()?['totalPosts'],
+          preferences: result.data()?['preferences']?.cast<String>(),
+        );
+      }
+    }
+    return null;
   }
 }

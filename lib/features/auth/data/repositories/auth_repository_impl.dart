@@ -17,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, UserEntity?>> getCurrentUser() async {
-    final user = await loginDatasource.authStateChanges.first;
+    final user = await loginDatasource.getCurrentUser();
     return Right(user);
   }
 
@@ -65,10 +65,5 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Left(
           NetworkFailure('No internet connection. Unable to sign out.'));
     }
-  }
-
-  @override
-  Stream<UserEntity?> get authStateChanges {
-    return loginDatasource.authStateChanges;
   }
 }

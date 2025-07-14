@@ -5,16 +5,38 @@ class UserModel extends UserEntity {
   const UserModel({
     required super.uid,
     required super.email,
-    super.displayName,
-    super.photoUrl,
+    super.name,
+    super.photo,
+    super.age,
+    super.totalPosts,
+    super.preferences,
   });
 
   factory UserModel.fromFirebaseUser(firebase_auth.User user) {
     return UserModel(
       uid: user.uid,
       email: user.email ?? '',
-      displayName: user.displayName,
-      photoUrl: user.photoURL,
+    );
+  }
+
+  @override
+  UserEntity copyWith({
+    String? uid,
+    String? email,
+    String? name,
+    String? photo,
+    int? age,
+    int? totalPosts,
+    List<String>? preferences,
+  }) {
+    return UserModel(
+      uid: uid ?? this.uid,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      photo: photo ?? this.photo,
+      age: age ?? this.age,
+      totalPosts: totalPosts ?? this.totalPosts,
+      preferences: preferences ?? this.preferences,
     );
   }
 }
